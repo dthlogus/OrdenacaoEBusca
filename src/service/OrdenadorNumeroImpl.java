@@ -3,7 +3,7 @@ package service;
 import java.util.Arrays;
 import java.util.List;
 
-public class OrdenadorImpl implements Ordenador {
+public class OrdenadorNumeroImpl implements OrdenadorNumero {
 
     @Override
     public List<String> ordenacaoViaBubble(List<String> naoOrdenado) {

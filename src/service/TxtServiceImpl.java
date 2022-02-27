@@ -1,5 +1,7 @@
 package service;
 
+import busca.Busca;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,52 +12,107 @@ import java.util.Scanner;
 
 public class TxtServiceImpl {
 
-    private Ordenador ordenador;
+    private OrdenadorNumero ordenadorNumero;
     private Long tempoOrdenacao = 0L;
     private Long tempoComBusca = 0L;
     private Long tempoComBuscaEOrdencao = 0L;
+    private String retornoBuscaSequencial;
+    private String retornoBuscaBinaria;
+    private OrdenadorPalavras ordenadorPalavras = new OrdenadorPalavras();
+    private Scanner scan = new Scanner(System.in);
+    private Busca busca = new Busca();
 
 
-    public TxtServiceImpl(Ordenador ordenador){
-        this.ordenador = ordenador;
+    public TxtServiceImpl(OrdenadorNumero ordenadorNumero){
+        this.ordenadorNumero = ordenadorNumero;
     }
 
     public void ordenadorBubble(String nomeArquivo) throws IOException {
         List<String> palavras = leitorArquivo(nomeArquivo);
         tempoOrdenacao = System.currentTimeMillis();
-        palavras = this.ordenador.ordenacaoViaBubble(palavras);
+        List<String> palavrasOrdenadas = this.ordenadorNumero.ordenacaoViaBubble(palavras);
         tempoOrdenacao = System.currentTimeMillis() - tempoOrdenacao;
-        System.out.println(tempoOrdenacao);
-        criarArquivoTxt(palavras);
+        System.out.println("Qual palavra deseja buscar?");
+        criarArquivoTxt(palavrasOrdenadas);
+        String palavraProcurar = scan.next();
+        tempoComBusca = System.currentTimeMillis();
+        retornoBuscaSequencial = busca.buscaSequencial(palavras, palavraProcurar);
+        tempoComBusca = System.currentTimeMillis() - tempoComBusca;
+        tempoComBuscaEOrdencao = System.currentTimeMillis();
+        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaInsertion(palavrasOrdenadas);
+        retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size() - 1);
+        tempoComBuscaEOrdencao = System.currentTimeMillis() - tempoComBuscaEOrdencao;
+        System.out.println("Busca Sequencial: "+retornoBuscaSequencial);
+        System.out.println("Busca Binaria: "+retornoBuscaBinaria);
+        System.out.println("Tempo de ordenação: "+tempoOrdenacao + " milissegundos");
+        System.out.println("Tempo de busca sequencial: "+tempoComBusca+ " milissegundos");
+        System.out.println("Tempo somente da busca binária: "+tempoComBuscaEOrdencao+" milissegundos");
     }
 
     public void ordenadorInsertion(String nomeArquivo) throws IOException {
         List<String> palavras = leitorArquivo(nomeArquivo);
         tempoOrdenacao = System.currentTimeMillis();
-        palavras = this.ordenador.ordenacaoViaInsertion(palavras);
+        List<String> palavrasOrdenadas = this.ordenadorNumero.ordenacaoViaInsertion(palavras);
         tempoOrdenacao = System.currentTimeMillis() - tempoOrdenacao;
-        System.out.println(tempoOrdenacao);
-        criarArquivoTxt(palavras);
+        criarArquivoTxt(palavrasOrdenadas);
+        System.out.println("Qual palavra deseja buscar?");
+        String palavraProcurar = scan.nextLine();
+        tempoComBusca = System.currentTimeMillis();
+        retornoBuscaSequencial = busca.buscaSequencial(palavras, palavraProcurar);
+        tempoComBusca = System.currentTimeMillis() - tempoComBusca;
+        tempoComBuscaEOrdencao = System.currentTimeMillis();
+        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaInsertion(palavrasOrdenadas);
+        retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size());
+        tempoComBuscaEOrdencao = System.currentTimeMillis() - tempoComBuscaEOrdencao;
+        System.out.println("Busca Sequencial: "+retornoBuscaSequencial);
+        System.out.println("Busca Binaria: "+retornoBuscaBinaria);
+        System.out.println("Tempo de ordenação: "+tempoOrdenacao + " milissegundos");
+        System.out.println("Tempo de busca sequencial: "+tempoComBusca+ " milissegundos");
+        System.out.println("Tempo somente da busca binária: "+tempoComBuscaEOrdencao+" milissegundos");
     }
 
     public void ordenadorMerge(String nomeArquivo) throws IOException {
         List<String> palavras = leitorArquivo(nomeArquivo);
-        String[] arrayPalavras = palavras.toArray(new String[0]);
         tempoOrdenacao = System.currentTimeMillis();
-        palavras = this.ordenador.ordenacaoViaMerge(arrayPalavras, 0,palavras.size() - 1);
+        List<String> palavrasOrdenadas = this.ordenadorNumero.ordenacaoViaMerge(palavras.toArray(new String[0]), 0,palavras.size() - 1);
         tempoOrdenacao = System.currentTimeMillis() - tempoOrdenacao;
-        System.out.println(tempoOrdenacao);
-        criarArquivoTxt(palavras);
+        criarArquivoTxt(palavrasOrdenadas);
+        System.out.println("Qual palavra deseja buscar?");
+        String palavraProcurar = scan.nextLine();
+        tempoComBusca = System.currentTimeMillis();
+        retornoBuscaSequencial = busca.buscaSequencial(palavras, palavraProcurar);
+        tempoComBusca = System.currentTimeMillis() - tempoComBusca;
+        tempoComBuscaEOrdencao = System.currentTimeMillis();
+        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaInsertion(palavrasOrdenadas);
+        retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size());
+        tempoComBuscaEOrdencao = System.currentTimeMillis() - tempoComBuscaEOrdencao;
+        System.out.println("Busca Sequencial: "+retornoBuscaSequencial);
+        System.out.println("Busca Binaria: "+retornoBuscaBinaria);
+        System.out.println("Tempo de ordenação: "+tempoOrdenacao + " milissegundos");
+        System.out.println("Tempo de busca sequencial: "+tempoComBusca+ " milissegundos");
+        System.out.println("Tempo somente da busca binária: "+tempoComBuscaEOrdencao+" milissegundos");
     }
 
     public void ordenadorQuick(String nomeArquivo) throws IOException {
         List<String> palavras = leitorArquivo(nomeArquivo);
-        String[] arrayPalavras = palavras.toArray(new String[0]);
         tempoOrdenacao = System.currentTimeMillis();
-        palavras = this.ordenador.ordenacaoViaQuick(arrayPalavras, 0, palavras.size() - 1);
+        List<String> palavrasOrdenadas = this.ordenadorNumero.ordenacaoViaQuick(palavras.toArray(new String[0]), 0, palavras.size() - 1);
         tempoOrdenacao = System.currentTimeMillis() - tempoOrdenacao;
-        System.out.println(tempoOrdenacao);
-        criarArquivoTxt(palavras);
+        criarArquivoTxt(palavrasOrdenadas);
+        System.out.println("Qual palavra deseja buscar?");
+        String palavraProcurar = scan.next();
+        tempoComBusca = System.currentTimeMillis();
+        retornoBuscaSequencial = busca.buscaSequencial(palavras, palavraProcurar);
+        tempoComBusca = System.currentTimeMillis() - tempoComBusca;
+        tempoComBuscaEOrdencao = System.currentTimeMillis();
+        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaInsertion(palavrasOrdenadas);
+        retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size());
+        tempoComBuscaEOrdencao = System.currentTimeMillis() - tempoComBuscaEOrdencao;
+        System.out.println("Busca Sequencial: "+retornoBuscaSequencial);
+        System.out.println("Busca Binaria: "+retornoBuscaBinaria);
+        System.out.println("Tempo de ordenação: "+tempoOrdenacao + " milissegundos");
+        System.out.println("Tempo de busca sequencial: "+tempoComBusca+ " milissegundos");
+        System.out.println("Tempo somente da busca binária: "+tempoComBuscaEOrdencao+" milissegundos");
     }
 
 

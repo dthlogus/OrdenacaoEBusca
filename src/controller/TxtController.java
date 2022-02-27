@@ -1,6 +1,6 @@
 package controller;
 
-import service.Ordenador;
+import service.OrdenadorNumero;
 import service.TxtServiceImpl;
 
 import java.io.IOException;
@@ -9,12 +9,12 @@ import java.util.Scanner;
 public class TxtController {
 
     private TxtServiceImpl txtServiceImpl;
-    private Ordenador ordenador;
+    private OrdenadorNumero ordenadorNumero;
     private String lingua;
 
-    public TxtController(TxtServiceImpl txtServiceImpl, Ordenador ordenador) {
+    public TxtController(TxtServiceImpl txtServiceImpl, OrdenadorNumero ordenadorNumero) {
         this.txtServiceImpl = txtServiceImpl;
-        this.ordenador = ordenador;
+        this.ordenadorNumero = ordenadorNumero;
     }
 
     public void escolhendoLingua() throws IOException {
