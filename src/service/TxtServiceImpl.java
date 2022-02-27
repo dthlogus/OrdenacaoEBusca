@@ -85,7 +85,9 @@ public class TxtServiceImpl {
         FileWriter writer = new FileWriter(arquivo);
         palavras.forEach(palavra -> {
             try {
-                writer.write(palavra+" ___ Tamanho: "+palavra.length() + System.lineSeparator());
+                if (palavra.length() > 0) {
+                    writer.write(palavra + " ___ Tamanho: " + palavra.length() + System.lineSeparator());
+                }
             } catch (IOException e) {
                e.printStackTrace();
             }

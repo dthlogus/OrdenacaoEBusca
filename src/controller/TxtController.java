@@ -12,69 +12,98 @@ public class TxtController {
     private Ordenador ordenador;
     private String lingua;
 
-    public TxtController(TxtServiceImpl txtServiceImpl, Ordenador ordenador){
+    public TxtController(TxtServiceImpl txtServiceImpl, Ordenador ordenador) {
         this.txtServiceImpl = txtServiceImpl;
         this.ordenador = ordenador;
     }
 
-    public void sistemaOrdenacao(){
-        Integer option = 0;
+    public void escolhendoLingua() throws IOException {
+        int option = 0;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Qual sistema de ordenaçào deseja usar?");
-        System.out.println("1. Bubble");
-        System.out.println("2. Insertion");
-        System.out.println("3. Merge");
-        System.out.println("4. Quick");
+        System.out.println("Qual língua deseja usar?");
+        System.out.println("1. Portugues");
+        System.out.println("2. Inglês");
+        System.out.println("3. Alemão");
+        System.out.println("4. Sair");
         option = scan.nextInt();
-        switch (option){
+        switch (option) {
             case 1:
-                arrayComBubble();
+                lingua = "dic_portugues";
                 break;
             case 2:
-                arrayComInsertion();
+                lingua = "dic_english";
                 break;
             case 3:
-                arrayComMergeSort();
+                lingua = "dic_german";
                 break;
             case 4:
-                arrayComQuickSort();
-                break;
+                System.exit(0);
             default:
-                System.out.println("por favor, selecione um valor válido.");
-                break;
+                throw new IOException("Faltou selecionar um campo valido");
         }
+        sistemaOrdenacao();
     }
 
-    private void arrayComBubble(){
-        try {
-            this.txtServiceImpl.ordenadorBubble("dic_portugues");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        private void sistemaOrdenacao () throws IOException {
+            int option = 0;
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Qual sistema de ordenaçào deseja usar?");
+            System.out.println("1. Bubble");
+            System.out.println("2. Insertion");
+            System.out.println("3. Merge");
+            System.out.println("4. Quick");
+            System.out.println("5. Sair");
+            option = scan.nextInt();
+            switch (option) {
+                case 1:
+                    arrayComBubble();
+                    break;
+                case 2:
+                    arrayComInsertion();
+                    break;
+                case 3:
+                    arrayComMergeSort();
+                    break;
+                case 4:
+                    arrayComQuickSort();
+                    break;
+                case 5:
+                    System.exit(0);
+                default:
+                    throw new IOException("Faltou selecionar um campo valido");
+            }
         }
-    }
 
-    private void arrayComInsertion(){
-        try {
-            this.txtServiceImpl.ordenadorInsertion("dic_portugues");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        private void arrayComBubble () {
+            try {
+                this.txtServiceImpl.ordenadorBubble(lingua);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
-    }
 
-    private void arrayComMergeSort(){
-        try {
-            this.txtServiceImpl.ordenadorMerge("dic_portugues");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        private void arrayComInsertion () {
+            try {
+                this.txtServiceImpl.ordenadorInsertion(lingua);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
-    }
 
-    private void arrayComQuickSort(){
-        try {
-            this.txtServiceImpl.ordenadorQuick("dic_portugues");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        private void arrayComMergeSort () {
+            try {
+                this.txtServiceImpl.ordenadorMerge(lingua);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
-    }
 
-}
+        private void arrayComQuickSort () {
+            try {
+                this.txtServiceImpl.ordenadorQuick(lingua);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
