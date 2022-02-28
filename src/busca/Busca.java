@@ -14,17 +14,16 @@ public class Busca {
     }
 
     public String buscaBinaria(String[] palavrasOrdenadas, String palavra, int inicio, int fim){
-        int meio = (inicio + fim) / 2;
-        int comparacao = palavrasOrdenadas[meio].compareTo(palavra);
-        if (inicio > fim) {
-            return "Palavra " + palavra + " não encontrada nessa lista, usando o método busca binaria";
+        if (fim >= inicio && inicio < palavrasOrdenadas.length - 1){
+            int meio  = inicio + (fim - inicio) / 2;
+            if (palavrasOrdenadas[meio].equals(palavra)){
+                return "Palavra "+palavra+" encontrada na posição: "+ meio + " , usando o método busca binaria";
+            }
+            if (palavrasOrdenadas[meio].compareTo(palavra) > 0){
+                return buscaBinaria(palavrasOrdenadas, palavra, inicio, meio - 1);
+            }
+            return buscaBinaria(palavrasOrdenadas, palavra, meio + 1, fim);
         }
-        if (comparacao == 0){
-            return "Palavra "+palavra+" encontrada na posição: "+meio+", usando o método busca binaria";
-        }else if (comparacao < 0){
-            return buscaBinaria(palavrasOrdenadas, palavra, inicio, meio - 1);
-        }else{
-            return buscaBinaria(palavrasOrdenadas, palavra, meio+1, fim);
-        }
+        return "Palavra "+palavra+" não encontrada nessa lista, usando o método busca binaria";
     }
 }

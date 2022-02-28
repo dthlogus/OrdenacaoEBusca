@@ -32,15 +32,15 @@ public class TxtServiceImpl {
         tempoOrdenacao = System.currentTimeMillis();
         List<String> palavrasOrdenadas = this.ordenadorNumero.ordenacaoViaBubble(palavras);
         tempoOrdenacao = System.currentTimeMillis() - tempoOrdenacao;
-        System.out.println("Qual palavra deseja buscar?");
         criarArquivoTxt(palavrasOrdenadas);
+        System.out.println("Qual palavra deseja buscar?");
         String palavraProcurar = scan.next();
         tempoComBusca = System.currentTimeMillis();
         retornoBuscaSequencial = busca.buscaSequencial(palavras, palavraProcurar);
         tempoComBusca = System.currentTimeMillis() - tempoComBusca;
         tempoComBuscaEOrdencao = System.currentTimeMillis();
-        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaInsertion(palavrasOrdenadas);
-        retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size() - 1);
+        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaBubble(palavrasOrdenadas);
+        retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size());
         tempoComBuscaEOrdencao = System.currentTimeMillis() - tempoComBuscaEOrdencao;
         System.out.println("Busca Sequencial: "+retornoBuscaSequencial);
         System.out.println("Busca Binaria: "+retornoBuscaBinaria);
@@ -83,7 +83,7 @@ public class TxtServiceImpl {
         retornoBuscaSequencial = busca.buscaSequencial(palavras, palavraProcurar);
         tempoComBusca = System.currentTimeMillis() - tempoComBusca;
         tempoComBuscaEOrdencao = System.currentTimeMillis();
-        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaInsertion(palavrasOrdenadas);
+        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaMerge(palavrasOrdenadas.toArray(new String[0]), 0, palavrasOrdenadas.size() - 1);
         retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size());
         tempoComBuscaEOrdencao = System.currentTimeMillis() - tempoComBuscaEOrdencao;
         System.out.println("Busca Sequencial: "+retornoBuscaSequencial);
@@ -105,7 +105,7 @@ public class TxtServiceImpl {
         retornoBuscaSequencial = busca.buscaSequencial(palavras, palavraProcurar);
         tempoComBusca = System.currentTimeMillis() - tempoComBusca;
         tempoComBuscaEOrdencao = System.currentTimeMillis();
-        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaInsertion(palavrasOrdenadas);
+        palavrasOrdenadas = ordenadorPalavras.ordenacaoViaQuick(palavrasOrdenadas.toArray(new String[0]), 0, palavrasOrdenadas.size() - 1);
         retornoBuscaBinaria = busca.buscaBinaria(palavrasOrdenadas.toArray(new String[0]), palavraProcurar,0, palavrasOrdenadas.size());
         tempoComBuscaEOrdencao = System.currentTimeMillis() - tempoComBuscaEOrdencao;
         System.out.println("Busca Sequencial: "+retornoBuscaSequencial);
