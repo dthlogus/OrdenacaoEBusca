@@ -13,7 +13,7 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
         palavras = naoOrdenado.toArray(new String[0]);
         for (Integer index = (palavras.length - 1); index != 1; index--) {
             System.out.print("Progresso: " + ((progress * 100) / palavras.length) + "% " + animationChars[progress % 4] + "\r");
-            for (Integer segundoIndex = 1; !segundoIndex.equals(index); segundoIndex++) {
+            for (Integer segundoIndex = 0; !segundoIndex.equals(index); segundoIndex++) {
                 if (palavras[segundoIndex].length() > palavras[segundoIndex + 1].length()) {
                     String auxiliar = palavras[segundoIndex];
                     palavras[segundoIndex] = palavras[segundoIndex + 1];
