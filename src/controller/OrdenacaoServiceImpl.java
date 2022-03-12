@@ -4,12 +4,12 @@ import busca.Busca;
 import model.Ordenacao;
 import service.OrdenadorNumero;
 
-public class OrdenacaoController {
+public class OrdenacaoServiceImpl {
 
     private OrdenadorNumero ordenadorNumero;
     private Busca busca = new Busca();
 
-    public OrdenacaoController(OrdenadorNumero ordenadorNumero){this.ordenadorNumero = ordenadorNumero;}
+    public OrdenacaoServiceImpl(OrdenadorNumero ordenadorNumero){this.ordenadorNumero = ordenadorNumero;}
 
     public Ordenacao ordencaoBubble(Ordenacao ordenacao){
         ordenacao.setBuscaSequencialNano(System.nanoTime());

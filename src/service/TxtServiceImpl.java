@@ -1,6 +1,6 @@
 package service;
 
-import controller.OrdenacaoController;
+import controller.OrdenacaoServiceImpl;
 import model.Ordenacao;
 
 import java.io.File;
@@ -14,11 +14,11 @@ import java.util.Scanner;
 public class TxtServiceImpl {
 
     private Scanner scan = new Scanner(System.in);
-    private OrdenacaoController ordenacaoController;
+    private OrdenacaoServiceImpl ordenacaoServiceImpl;
     private Ordenacao ordenacao;
 
-    public TxtServiceImpl(OrdenacaoController ordenacaoController) {
-        this.ordenacaoController = ordenacaoController;
+    public TxtServiceImpl(OrdenacaoServiceImpl ordenacaoServiceImpl) {
+        this.ordenacaoServiceImpl = ordenacaoServiceImpl;
         ordenacao = new Ordenacao();
     }
 
@@ -26,7 +26,7 @@ public class TxtServiceImpl {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
         ordenacao.setPalavraBuscar(scan.next());
-        ordenacao = ordenacaoController.ordencaoBubble(ordenacao);
+        ordenacao = ordenacaoServiceImpl.ordencaoBubble(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
         System.out.println("Busca Binaria: " + ordenacao.getRetornoBuscaBinaria());
@@ -36,7 +36,7 @@ public class TxtServiceImpl {
         } else {
             System.out.println("Tempo de busca sequencial: " + ordenacao.getBuscaSequencialNano() + " nanosegundos");
         }
-        if (ordenacao.getBuscaSequencialMili() > 0) {
+        if (ordenacao.getBuscaBinariaMili() > 0) {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaMili() + " milissegundos");
         } else {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaNano() + " nanosegundo");
@@ -48,7 +48,7 @@ public class TxtServiceImpl {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
         ordenacao.setPalavraBuscar(scan.next());
-        ordenacao = ordenacaoController.ordencaoInsert(ordenacao);
+        ordenacao = ordenacaoServiceImpl.ordencaoInsert(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
         System.out.println("Busca Binaria: " + ordenacao.getRetornoBuscaBinaria());
@@ -58,7 +58,7 @@ public class TxtServiceImpl {
         } else {
             System.out.println("Tempo de busca sequencial: " + ordenacao.getBuscaSequencialNano() + " nanosegundos");
         }
-        if (ordenacao.getBuscaSequencialMili() > 0) {
+        if (ordenacao.getBuscaBinariaMili() > 0) {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaMili() + " milissegundos");
         } else {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaNano() + " nanosegundo");
@@ -70,7 +70,7 @@ public class TxtServiceImpl {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
         ordenacao.setPalavraBuscar(scan.next());
-        ordenacao = ordenacaoController.ordencaoMerge(ordenacao);
+        ordenacao = ordenacaoServiceImpl.ordencaoMerge(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
         System.out.println("Busca Binaria: " + ordenacao.getRetornoBuscaBinaria());
@@ -80,7 +80,7 @@ public class TxtServiceImpl {
         } else {
             System.out.println("Tempo de busca sequencial: " + ordenacao.getBuscaSequencialNano() + " nanosegundos");
         }
-        if (ordenacao.getBuscaSequencialMili() > 0) {
+        if (ordenacao.getBuscaBinariaMili() > 0) {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaMili() + " milissegundos");
         } else {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaNano() + " nanosegundo");
@@ -92,7 +92,7 @@ public class TxtServiceImpl {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
         ordenacao.setPalavraBuscar(scan.next());
-        ordenacao = ordenacaoController.ordencaoQuick(ordenacao);
+        ordenacao = ordenacaoServiceImpl.ordencaoQuick(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
         System.out.println("Busca Binaria: " + ordenacao.getRetornoBuscaBinaria());
@@ -102,7 +102,7 @@ public class TxtServiceImpl {
         } else {
             System.out.println("Tempo de busca sequencial: " + ordenacao.getBuscaSequencialNano() + " nanosegundos");
         }
-        if (ordenacao.getBuscaSequencialMili() > 0) {
+        if (ordenacao.getBuscaBinariaMili() > 0) {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaMili() + " milissegundos");
         } else {
             System.out.println("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaNano() + " nanosegundo");
@@ -111,11 +111,42 @@ public class TxtServiceImpl {
     }
 
     public void relatorioTodos(String nomeArquivo) throws IOException {
-
+        String retorno = "";
+        ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
+        System.out.println("Qual palavra deseja buscar?");
+        ordenacao.setPalavraBuscar(scan.next());
+        ordenacao = ordenacaoServiceImpl.ordencaoBubble(ordenacao);
+        retorno = criadorSaidaString("Bubble", retorno, ordenacao);
+        ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
+        ordenacao = ordenacaoServiceImpl.ordencaoInsert(ordenacao);
+        retorno = criadorSaidaString("Insert", retorno, ordenacao);
+        ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
+        ordenacao = ordenacaoServiceImpl.ordencaoMerge(ordenacao);
+        retorno = criadorSaidaString("Merge", retorno, ordenacao);
+        ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
+        ordenacao = ordenacaoServiceImpl.ordencaoQuick(ordenacao);
+        retorno = criadorSaidaString("Quick", retorno, ordenacao);
+        criarArquivoTxt(ordenacao.getListaOrdenacao());
+        System.out.printf(retorno);
     }
 
-    private void criadorSaidaString(Long ordenacao, Long buscaSequencial, Long buscaBinaria) {
-
+    private String criadorSaidaString(String metodo, String retorno, Ordenacao ordenacao) {
+        retorno = retorno.concat("#### "+metodo+" ####\n");
+        retorno = retorno.concat("Busca Sequencial: "+ordenacao.getRetornoBuscaSequencial()+" \n");
+        retorno = retorno.concat("Busca Binaria: "+ordenacao.getRetornoBuscaBinaria()+" \n");
+        retorno = retorno.concat("Tempo de Ordenação: "+ ordenacao.getOrdenacao() + " milissegundos \n");
+        if (ordenacao.getBuscaSequencialMili() > 0) {
+            retorno = retorno.concat("Tempo de busca sequencial: " + ordenacao.getBuscaSequencialMili() + " milissegundos\n");
+        } else {
+            retorno = retorno.concat("Tempo de busca sequencial: " + ordenacao.getBuscaSequencialNano() + " nanosegundos\n");
+        }
+        if (ordenacao.getBuscaBinariaMili() > 0) {
+            retorno = retorno.concat("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaMili() + " milissegundos\n");
+        } else {
+            retorno = retorno.concat("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaNano() + " nanosegundo\n");
+        }
+        retorno = retorno.concat("Tempo com busca binaria e ordenação " + (ordenacao.getBuscaBinariaMili() + ordenacao.getOrdenacao()) + " milissegundos\n\n\n");
+        return retorno;
     }
 
     private List<String> leitorArquivo(String nomeArquivo) throws IOException {

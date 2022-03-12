@@ -8,11 +8,10 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
     @Override
     public List<String> ordenacaoViaBubble(List<String> naoOrdenado) {
         String[] palavras;
-        Integer progress = 0;
         char[] animationChars = new char[]{'|', '/', '-', '\\'};
         palavras = naoOrdenado.toArray(new String[0]);
         for (Integer index = (palavras.length - 1); index != 1; index--) {
-            System.out.print("Progresso: " + ((progress * 100) / palavras.length) + "% " + animationChars[progress % 4] + "\r");
+            System.out.print("Em ordenação: " + animationChars[index % 4] + "\r");
             for (Integer segundoIndex = 0; !segundoIndex.equals(index); segundoIndex++) {
                 if (palavras[segundoIndex].length() > palavras[segundoIndex + 1].length()) {
                     String auxiliar = palavras[segundoIndex];
@@ -20,7 +19,6 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
                     palavras[segundoIndex + 1] = auxiliar;
                 }
             }
-            progress++;
         }
         return Arrays.asList(palavras.clone());
     }
@@ -31,7 +29,7 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
         char[] animationChars = new char[]{'|', '/', '-', '\\'};
         palavras = naoOrdenado.toArray(new String[0]);
         for (Integer index = 1; index != palavras.length; index++) {
-            System.out.print("Progresso: " + ((index * 100) / palavras.length) + "% " + animationChars[index % 4] + "\r");
+            System.out.print("Em ordenação: "+ animationChars[index % 4] + "\r");
             String auxiliar = palavras[index];
             Integer segundoIndex = index;
             while (segundoIndex > 0 && (palavras[segundoIndex - 1].length() > auxiliar.length())) {
@@ -71,7 +69,7 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
         Integer indexDireita = 0;
 
         for (Integer index = primeira; index < ultima + 1; index++) {
-            System.out.print("Progresso: " + ((index * 100) / palavras.length) + "% " + animationChars[index % 4] + "\r");
+            System.out.print("Em ordenação: " + animationChars[index % 4] + "\r");
             if (indexEsquerda < arrayEsquerda.length && indexDireita < arrayDireita.length) {
                 if (arrayEsquerda[indexEsquerda].length() < arrayDireita[indexDireita].length()) {
                     palavras[index] = arrayEsquerda[indexEsquerda];
@@ -105,7 +103,7 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
         int retorno = (primeira - 1);
         char[] animationChars = new char[]{'|', '/', '-', '\\'};
         for (int index = primeira; index < ultima; index++) {
-            System.out.print("Progresso: " + animationChars[index % 4] + "\r");
+            System.out.print("Em ordenação: " + animationChars[index % 4] + "\r");
             if (palavras[index].length() <= pivot.length()) {
                 retorno++;
 

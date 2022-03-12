@@ -52,7 +52,8 @@ public class TxtController {
             System.out.println("2. Insertion");
             System.out.println("3. Merge");
             System.out.println("4. Quick");
-            System.out.println("5. Sair");
+            System.out.println("5. Relatório Total (Pode demorar para ser completado)");
+            System.out.println("6. Sair");
             option = scan.nextInt();
             switch (option) {
                 case 1:
@@ -68,6 +69,9 @@ public class TxtController {
                     arrayComQuickSort();
                     break;
                 case 5:
+                    relatorioTotal();
+                    break;
+                case 6:
                     System.exit(0);
                 default:
                     throw new IOException("Faltou selecionar um campo valido");
@@ -102,6 +106,14 @@ public class TxtController {
             try {
                 this.txtServiceImpl.ordenadorQuick(lingua);
             } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        private void relatorioTotal(){
+            try{
+                this.txtServiceImpl.relatorioTodos(lingua);
+            }catch (IOException e){
                 System.out.println(e.getMessage());
             }
         }
