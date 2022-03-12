@@ -64,7 +64,7 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
             arrayEsquerda[index] = palavras[primeira + index];
         }
         for (Integer index = 0; index < arrayDireita.length; index++) {
-            arrayDireita[index] = palavras[meio + index + 1];
+            arrayDireita[index] = palavras[(meio + index) + 1];
         }
 
         Integer indexEsquerda = 0;

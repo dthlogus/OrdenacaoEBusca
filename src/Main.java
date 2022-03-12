@@ -1,3 +1,4 @@
+import controller.OrdenacaoController;
 import controller.TxtController;
 import service.TxtServiceImpl;
 import service.OrdenadorNumeroImpl;
@@ -9,7 +10,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             OrdenadorNumeroImpl ordenador = new OrdenadorNumeroImpl();
-            TxtServiceImpl txtServiceImpl = new TxtServiceImpl(ordenador);
+            OrdenacaoController ordenacaoController = new OrdenacaoController(ordenador);
+            TxtServiceImpl txtServiceImpl = new TxtServiceImpl(ordenacaoController);
             TxtController txtController = new TxtController(txtServiceImpl, ordenador);
             txtController.escolhendoLingua();
         } catch (Exception e){
