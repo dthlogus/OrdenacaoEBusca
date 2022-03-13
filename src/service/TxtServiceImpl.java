@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class TxtServiceImpl {
 
@@ -25,7 +26,7 @@ public class TxtServiceImpl {
     public void ordenadorBubble(String nomeArquivo) throws IOException {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
-        ordenacao.setPalavraBuscar(scan.next());
+        ordenacao.setPalavraBuscar(scan.nextLine());
         ordenacao = ordenacaoServiceImpl.ordencaoBubble(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
@@ -47,7 +48,7 @@ public class TxtServiceImpl {
     public void ordenadorInsertion(String nomeArquivo) throws IOException {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
-        ordenacao.setPalavraBuscar(scan.next());
+        ordenacao.setPalavraBuscar(scan.nextLine());
         ordenacao = ordenacaoServiceImpl.ordencaoInsert(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
@@ -69,7 +70,7 @@ public class TxtServiceImpl {
     public void ordenadorMerge(String nomeArquivo) throws IOException {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
-        ordenacao.setPalavraBuscar(scan.next());
+        ordenacao.setPalavraBuscar(scan.nextLine());
         ordenacao = ordenacaoServiceImpl.ordencaoMerge(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
@@ -91,7 +92,7 @@ public class TxtServiceImpl {
     public void ordenadorQuick(String nomeArquivo) throws IOException {
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
-        ordenacao.setPalavraBuscar(scan.next());
+        ordenacao.setPalavraBuscar(scan.nextLine());
         ordenacao = ordenacaoServiceImpl.ordencaoQuick(ordenacao);
         criarArquivoTxt(ordenacao.getListaOrdenacao());
         System.out.println("Busca Sequencial: " + ordenacao.getRetornoBuscaSequencial());
@@ -114,7 +115,7 @@ public class TxtServiceImpl {
         String retorno = "";
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         System.out.println("Qual palavra deseja buscar?");
-        ordenacao.setPalavraBuscar(scan.next());
+        ordenacao.setPalavraBuscar(scan.nextLine());
         ordenacao = ordenacaoServiceImpl.ordencaoBubble(ordenacao);
         retorno = criadorSaidaString("Bubble", retorno, ordenacao);
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
@@ -158,8 +159,11 @@ public class TxtServiceImpl {
         ArrayList<String> listPalavras = new ArrayList<>();
         Scanner scan = new Scanner(arquivo);
         while (scan.hasNext()) {
-            String[] arrayString = scan.next().split("/");
-            listPalavras.add(arrayString[0]);
+            String palavra = scan.nextLine();
+            String[] arrayString = palavra.split(Pattern.quote("\\"));
+            if (arrayString.length > 0 || !palavra.isEmpty()) {
+                listPalavras.add(arrayString[0]);
+            }
         }
         listPalavras.remove(0);
         return listPalavras;
@@ -175,9 +179,7 @@ public class TxtServiceImpl {
         FileWriter writer = new FileWriter(arquivo);
         palavras.forEach(palavra -> {
             try {
-                if (palavra.length() > 0) {
-                    writer.write(palavra + " ___ Tamanho: " + palavra.length() + System.lineSeparator());
-                }
+                writer.write(palavra + " ___ Tamanho: " + palavra.length() + System.lineSeparator());
             } catch (IOException e) {
                 e.printStackTrace();
             }

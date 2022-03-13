@@ -7,7 +7,7 @@ public class Busca {
     public String buscaSequencial (List<String> palavras, String palavra){
         for (int index = 0; index < palavras.size(); index++){
             if (palavras.get(index).equals(palavra)){
-                return "Palavra "+palavra+" encontrada na posição: "+ (index + 2)+ " , usando o método busca sequencial";
+                return "Palavra "+palavra+" encontrada na posição: "+(index+2)+ " , usando o método busca sequencial";
             }
         }
         return "Palavra "+palavra+" não encontrada nessa lista, usando o método busca sequencial";
@@ -19,12 +19,12 @@ public class Busca {
             if (palavrasOrdenadas.get(meio).length() == palavra.length()){
                 for (Integer index = meio; palavrasOrdenadas.get(index).length() == palavra.length(); index--){
                     if (palavrasOrdenadas.get(index).equals(palavra)){
-                        return "Palavra "+palavrasOrdenadas.get(index)+" encontrado na posição "+(index+1)+" usando método binário";
+                        return "Palavra "+palavrasOrdenadas.get(index)+" encontrado na posição "+(index + 1)+" usando método binário";
                     }
                 }
                 for (Integer index = meio; palavrasOrdenadas.get(index).length() == palavra.length(); index++){
                     if (palavrasOrdenadas.get(index).equals(palavra)){
-                        return "Palavra "+palavrasOrdenadas.get(index)+" encontrado na posição "+(index+1)+" usando método binário";
+                        return "Palavra "+palavrasOrdenadas.get(index)+" encontrado na posição "+(index + 1)+" usando método binário";
                     }
                 }
             }
