@@ -118,16 +118,19 @@ public class TxtServiceImpl {
         ordenacao.setPalavraBuscar(scan.nextLine());
         ordenacao = ordenacaoServiceImpl.ordencaoBubble(ordenacao);
         retorno = criadorSaidaString("Bubble", retorno, ordenacao);
+        criarArquivoTxt(ordenacao.getListaOrdenacao(), "Bubble");
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         ordenacao = ordenacaoServiceImpl.ordencaoInsert(ordenacao);
         retorno = criadorSaidaString("Insert", retorno, ordenacao);
+        criarArquivoTxt(ordenacao.getListaOrdenacao(), "Insert");
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         ordenacao = ordenacaoServiceImpl.ordencaoMerge(ordenacao);
         retorno = criadorSaidaString("Merge", retorno, ordenacao);
+        criarArquivoTxt(ordenacao.getListaOrdenacao(), "Merge");
         ordenacao.setListaOrdenacao(leitorArquivo(nomeArquivo));
         ordenacao = ordenacaoServiceImpl.ordencaoQuick(ordenacao);
         retorno = criadorSaidaString("Quick", retorno, ordenacao);
-        criarArquivoTxt(ordenacao.getListaOrdenacao());
+        criarArquivoTxt(ordenacao.getListaOrdenacao(), "Quick");
         System.out.printf(retorno);
     }
 
@@ -160,7 +163,7 @@ public class TxtServiceImpl {
         Scanner scan = new Scanner(arquivo);
         while (scan.hasNext()) {
             String palavra = scan.nextLine();
-            String[] arrayString = palavra.split(Pattern.quote("\\"));
+            String[] arrayString = palavra.split("/");
             if (arrayString.length > 0 || !palavra.isEmpty()) {
                 listPalavras.add(arrayString[0]);
             }
@@ -187,5 +190,21 @@ public class TxtServiceImpl {
         writer.close();
     }
 
-
+    public void criarArquivoTxt(List<String> palavras, String metodo) throws IOException {
+        File arquivo = new File("src/resource/saida/saida"+metodo+".txt");
+        if (arquivo.delete()) {
+            if (!arquivo.createNewFile()) {
+                throw new IOException("Problema na criação do arquivo");
+            }
+        }
+        FileWriter writer = new FileWriter(arquivo);
+        palavras.forEach(palavra -> {
+            try {
+                writer.write(palavra + " ___ Tamanho: " + palavra.length() + System.lineSeparator());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        writer.close();
+    }
 }
