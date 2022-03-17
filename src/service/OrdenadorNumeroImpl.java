@@ -90,33 +90,29 @@ public class OrdenadorNumeroImpl implements OrdenadorNumero {
 
     @Override
     public List<String> ordenacaoViaQuick(String[] palavras, int primeira, int ultima) {
-        if (primeira < ultima) {
-            int pivot = particao(palavras, primeira, ultima);
-            ordenacaoViaQuick(palavras, primeira, pivot - 1);
-            ordenacaoViaQuick(palavras, pivot + 1, ultima);
+
+        if (primeira < ultima){
+            int index = particao(palavras, primeira, ultima);
+            ordenacaoViaQuick(palavras, primeira, index - 1);
+            ordenacaoViaQuick(palavras, index + 1,ultima);
         }
         return Arrays.asList(palavras.clone());
     }
 
     private Integer particao(String[] palavras, int primeira, int ultima) {
         String pivot = palavras[ultima];
-        int retorno = (primeira - 1);
-        char[] animationChars = new char[]{'|', '/', '-', '\\'};
-        for (int index = primeira; index < ultima; index++) {
-            System.out.print("Em ordenação: " + animationChars[index % 4] + "\r");
-            if (palavras[index].length() <= pivot.length()) {
-                retorno++;
-
-                String troca = palavras[retorno];
-                palavras[retorno] = palavras[index];
-                palavras[index] = troca;
+        int i = (primeira - 1);
+        for (int j = primeira; j < ultima; j++){
+            if (palavras[j].length() < pivot.length()){
+                i++;
+                String temp = palavras[i];
+                palavras[i] = palavras[j];
+                palavras[j] = temp;
             }
         }
-        String troca = palavras[retorno + 1];
-        palavras[retorno + 1] = palavras[ultima];
-        palavras[ultima] = troca;
-
-        return retorno + 1;
+        String temp = palavras[i+1];
+        palavras[i+1] = palavras[ultima];
+        palavras[ultima] = temp;
+        return i+1;
     }
-
 }

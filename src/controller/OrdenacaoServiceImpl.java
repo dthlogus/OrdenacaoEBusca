@@ -69,6 +69,7 @@ public class OrdenacaoServiceImpl {
         ordenacao.setBuscaSequencialNano(System.nanoTime() - ordenacao.getBuscaSequencialNano());
         ordenacao.setBuscaSequencialMili(System.currentTimeMillis() - ordenacao.getBuscaSequencialMili());
         ordenacao.setOrdenacao(System.currentTimeMillis());
+        System.out.println("Ordenação via Quick");
         ordenacao.setListaOrdenacao(ordenadorNumero.ordenacaoViaQuick(ordenacao.getListaOrdenacao().toArray(new String[0]),0, ordenacao.getListaOrdenacao().size() - 1));
         ordenacao.setOrdenacao(System.currentTimeMillis() - ordenacao.getOrdenacao());
         ordenacao.setBuscaBinariaNano(System.nanoTime());
