@@ -135,7 +135,7 @@ public class TxtServiceImpl {
     }
 
     private String criadorSaidaString(String metodo, String retorno, Ordenacao ordenacao) {
-        retorno = retorno.concat("#### "+metodo+" ####\n");
+        retorno = retorno.concat("\n\n#### "+metodo+" ####\n");
         retorno = retorno.concat("Busca Sequencial: "+ordenacao.getRetornoBuscaSequencial()+" \n");
         retorno = retorno.concat("Busca Binaria: "+ordenacao.getRetornoBuscaBinaria()+" \n");
         retorno = retorno.concat("Tempo de Ordenação: "+ ordenacao.getOrdenacao() + " milissegundos \n");
@@ -149,7 +149,7 @@ public class TxtServiceImpl {
         } else {
             retorno = retorno.concat("Tempo somente da busca binária: " + ordenacao.getBuscaBinariaNano() + " nanosegundo\n");
         }
-        retorno = retorno.concat("Tempo com busca binaria e ordenação " + (ordenacao.getBuscaBinariaMili() + ordenacao.getOrdenacao()) + " milissegundos\n\n\n");
+        retorno = retorno.concat("Tempo com busca binaria e ordenação " + (ordenacao.getBuscaBinariaMili() + ordenacao.getOrdenacao()) + " milissegundos\n");
         return retorno;
     }
 

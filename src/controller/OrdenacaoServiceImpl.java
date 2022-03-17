@@ -12,6 +12,7 @@ public class OrdenacaoServiceImpl {
     public OrdenacaoServiceImpl(OrdenadorNumero ordenadorNumero){this.ordenadorNumero = ordenadorNumero;}
 
     public Ordenacao ordencaoBubble(Ordenacao ordenacao){
+        System.out.println("Ordenação via Bubble");
         ordenacao.setBuscaSequencialNano(System.nanoTime());
         ordenacao.setBuscaSequencialMili(System.currentTimeMillis());
         ordenacao.setRetornoBuscaSequencial(busca.buscaSequencial(ordenacao.getListaOrdenacao(), ordenacao.getPalavraBuscar()));
@@ -29,6 +30,7 @@ public class OrdenacaoServiceImpl {
     }
 
     public Ordenacao ordencaoInsert(Ordenacao ordenacao){
+        System.out.println("Ordenação via Insert");
         ordenacao.setBuscaSequencialNano(System.nanoTime());
         ordenacao.setBuscaSequencialMili(System.currentTimeMillis());
         ordenacao.setRetornoBuscaSequencial(busca.buscaSequencial(ordenacao.getListaOrdenacao(), ordenacao.getPalavraBuscar()));
@@ -46,6 +48,7 @@ public class OrdenacaoServiceImpl {
     }
 
     public Ordenacao ordencaoMerge(Ordenacao ordenacao){
+        System.out.println("Ordenação via Merge");
         ordenacao.setBuscaSequencialNano(System.nanoTime());
         ordenacao.setBuscaSequencialMili(System.currentTimeMillis());
         ordenacao.setRetornoBuscaSequencial(busca.buscaSequencial(ordenacao.getListaOrdenacao(), ordenacao.getPalavraBuscar()));
@@ -63,13 +66,13 @@ public class OrdenacaoServiceImpl {
     }
 
     public Ordenacao ordencaoQuick(Ordenacao ordenacao){
+        System.out.println("Ordenação via Quick");
         ordenacao.setBuscaSequencialNano(System.nanoTime());
         ordenacao.setBuscaSequencialMili(System.currentTimeMillis());
         ordenacao.setRetornoBuscaSequencial(busca.buscaSequencial(ordenacao.getListaOrdenacao(), ordenacao.getPalavraBuscar()));
         ordenacao.setBuscaSequencialNano(System.nanoTime() - ordenacao.getBuscaSequencialNano());
         ordenacao.setBuscaSequencialMili(System.currentTimeMillis() - ordenacao.getBuscaSequencialMili());
         ordenacao.setOrdenacao(System.currentTimeMillis());
-        System.out.println("Ordenação via Quick");
         ordenacao.setListaOrdenacao(ordenadorNumero.ordenacaoViaQuick(ordenacao.getListaOrdenacao().toArray(new String[0]),0, ordenacao.getListaOrdenacao().size() - 1));
         ordenacao.setOrdenacao(System.currentTimeMillis() - ordenacao.getOrdenacao());
         ordenacao.setBuscaBinariaNano(System.nanoTime());
