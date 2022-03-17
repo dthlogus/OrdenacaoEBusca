@@ -47,7 +47,7 @@ public class TxtController {
         private void sistemaOrdenacao () throws IOException {
             int option = 0;
             Scanner scan = new Scanner(System.in);
-            System.out.println("Qual sistema de ordenaçào deseja usar?");
+            System.out.println("Qual sistema de ordenação deseja usar?");
             System.out.println("1. Bubble");
             System.out.println("2. Insertion");
             System.out.println("3. Merge");
